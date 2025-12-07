@@ -1,0 +1,78 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python -m src.data.preprocess
+    deps:
+    - path: data/raw/kidney_dataset.csv
+      hash: md5
+      md5: 1ef0f95b03fd9f6892472cf7fed3f185
+      size: 701171
+    - path: params.yaml
+      hash: md5
+      md5: 70195b480eff79c71e408c92710e4a6d
+      size: 629
+    - path: src/data/load_data.py
+      hash: md5
+      md5: f6eef90fd76347f0e06ed6d6a90de301
+      size: 424
+    - path: src/data/preprocess.py
+      hash: md5
+      md5: f03961065ebf8bdb3cb6b5023312ed06
+      size: 2136
+    outs:
+    - path: data/processed/kidney_processed.csv
+      hash: md5
+      md5: 59c45df1fc871cbb1c20688a01544aa7
+      size: 688273
+  train:
+    cmd: python -m src.models.train
+    deps:
+    - path: data/processed/kidney_processed.csv
+      hash: md5
+      md5: 59c45df1fc871cbb1c20688a01544aa7
+      size: 688273
+    - path: params.yaml
+      hash: md5
+      md5: 70195b480eff79c71e408c92710e4a6d
+      size: 629
+    - path: src/data/preprocess.py
+      hash: md5
+      md5: f03961065ebf8bdb3cb6b5023312ed06
+      size: 2136
+    - path: src/models/train.py
+      hash: md5
+      md5: df256e8eb5b32c1683f30605812ab2ea
+      size: 994
+    outs:
+    - path: models/model.pkl
+      hash: md5
+      md5: adde3863ccbc85c779253a9d0199e1bb
+      size: 463497
+    - path: models/preprocessor.pkl
+      hash: md5
+      md5: 014ce1888168ccff85d5a314c2426753
+      size: 3248
+  evaluate:
+    cmd: python -m src.models.evaluate
+    deps:
+    - path: data/processed/kidney_processed.csv
+      hash: md5
+      md5: 59c45df1fc871cbb1c20688a01544aa7
+      size: 688273
+    - path: models/model.pkl
+      hash: md5
+      md5: adde3863ccbc85c779253a9d0199e1bb
+      size: 463497
+    - path: params.yaml
+      hash: md5
+      md5: 70195b480eff79c71e408c92710e4a6d
+      size: 629
+    - path: src/models/evaluate.py
+      hash: md5
+      md5: a8909a6ed93c42adaea0e6cd6d913ce9
+      size: 1218
+    outs:
+    - path: reports/metrics.json
+      hash: md5
+      md5: 6f9f69d1aa93acc39846b87fc4acbfba
+      size: 105

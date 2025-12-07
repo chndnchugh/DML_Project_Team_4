@@ -1,0 +1,19 @@
+# Git / DVC / venv
+.git
+.dvc
+.dvc/cache
+.dvc/tmp
+venv
+__pycache__
+*.pyc
+
+# MLflow & experiment logs
+mlruns
+
+# Data (you usually don’t bake full data into the image)
+data/
+notebooks/
+
+# Big / generated artifacts
+models/
+reports/figures/

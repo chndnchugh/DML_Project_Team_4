@@ -1,0 +1,31 @@
+stages:
+  preprocess:
+    cmd: python -m src.data.preprocess
+    deps:
+      - src/data/preprocess.py
+      - src/data/load_data.py
+      - params.yaml
+      - data/raw/kidney_dataset.csv
+    outs:
+      - data/processed/kidney_processed.csv
+
+  train:
+    cmd: python -m src.models.train
+    deps:
+      - src/models/train.py
+      - src/data/preprocess.py
+      - data/processed/kidney_processed.csv
+      - params.yaml
+    outs:
+      - models/model.pkl
+      - models/preprocessor.pkl
+
+  evaluate:
+    cmd: python -m src.models.evaluate
+    deps:
+      - src/models/evaluate.py
+      - models/model.pkl
+      - data/processed/kidney_processed.csv
+      - params.yaml
+    outs:
+      - reports/metrics.json

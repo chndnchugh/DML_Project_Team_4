@@ -1,0 +1,14 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: kidney-mlops-api:latest
+    container_name: kidney-mlops-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app/models:/app/app/models
+      - ./mlruns:/app/mlruns
+    environment:
+      - PYTHONUNBUFFERED=1

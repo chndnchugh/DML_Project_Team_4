@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: kidney-mlops-api
+    env: docker
+    region: singapore
+    plan: free
+    dockerfilePath: ./Dockerfile
+    numInstances: 1
+    autoDeploy: true

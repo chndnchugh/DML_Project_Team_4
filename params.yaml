@@ -1,0 +1,38 @@
+data:
+  raw_path: "data/raw/kidney_dataset.csv"
+  processed_path: "data/processed/kidney_processed.csv"
+  test_size: 0.2
+  random_state: 42
+  target: "CKD_Status"
+
+features:
+  numeric:
+    - "Creatinine"
+    - "BUN"
+    - "GFR"
+    - "Urine_Output"
+    - "Age"
+    - "Protein_in_Urine"
+    - "Water_Intake"
+
+  categorical:
+    - "Diabetes"
+    - "Hypertension"
+    - "Medication"
+
+model:
+  type: "random_forest"
+  rf_params:
+    n_estimators: 200
+    max_depth: 8
+    min_samples_split: 4
+    min_samples_leaf: 2
+    n_jobs: -1
+
+evaluation:
+  metrics:
+    - "accuracy"
+    - "precision"
+    - "recall"
+    - "f1"
+    - "roc_auc"
